@@ -59,9 +59,9 @@ $(function() {
           */
         it('changes visibility on click', function() {
             $('.menu-icon-link').trigger('click');
-            expect($('body').hasClass('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
             $('.menu-icon-link').trigger('click');
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
     });
@@ -75,7 +75,7 @@ $(function() {
         });
         
         it('have entries', function() {
-            expect($('.feed').find($('.entry')).length).not.toBe(0);
+            expect($('.feed .entry').length).not.toBe(0);
         }); 
     });
 
@@ -85,14 +85,14 @@ $(function() {
         var originalContent;
         //idea to nest callbacks came from https://discussions.udacity.com/t/last-spec-in-feedreader-js/14575/4?u=benm
         beforeEach(function(done) {
-            loadFeed(0, function(){
-                originalContent = $('.header-title').html();
+            loadFeed(0, function() {
+                originalContent = $(".entry-link").first().attr('href');
                 loadFeed(1, done);
             });
         });
         //compares content from new loadFeed to content from old
         it('changes content', function() {
-            var newContent = $('.header-title').html();
+            var newContent = $(".entry-link").first().attr('href');
             expect(originalContent).not.toEqual(newContent);
         });
     });
